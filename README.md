@@ -60,4 +60,75 @@ After adjusting the code:
 
 ![image](https://user-images.githubusercontent.com/58916022/220420464-45d802d2-2bca-40ce-9ec8-a791873f1844.png)
 
+## WiFi Scan
+
+Let's test a different code, that searchs for the nearby networks. In resume, we keep using the library "ESP8266WiFi.h".
+
+![image](https://user-images.githubusercontent.com/58916022/220433634-636df9e8-62c7-4e62-8ca5-fd520e25ec6f.png)
+
+The 'void setup()' only receives the commands to change the *WiFi.mode* to *WIFI_STA* (wifi station). Also, the code makes sure that the access point (AP) isn't connected to a network
+
+```c
+  // Coloca no modo WiFi Station (WiFi_STA)
+  WiFi.mode(WIFI_STA);
+  // Desconecta de um AP que estava previamente conectado para poder fazer o WiFi Scan
+  WiFi.disconnect();
+  delay(100);
+
+  Serial.println("Setup done");
+```
+
+Then, in 'void Loop()', using the *WiFi.scanNetworks* class function, we will attribute to the variable 'n' the number of network found.
+
+```c
+ // WiFi.scanNetworks will return the number of networks found
+  int n = WiFi.scanNetworks();
+```
+
+Then we will check if this value is equal to 0 (not a single network found).
+
+```c
+  if (n == 0) {
+    Serial.println(" Não foi encontrada nenhuma rede");
+  }
+``` 
+
+And in case of network found, it will print the number of networks.
+
+```c
+ else {
+  Serial.print("Redes WiFi encontradas = ");
+  Serial.println(n);
+ ```
+ 
+ Then we will print on Serial Monitor all network found (its SSID - Service Set Identifier).
+ 
+ ```c
+  for (int i = 0; i < n; ++i) {
+  // Apresenta no serial monitor o SSID e a RSSI de cada rede encontrada
+  Serial.print(i + 1);
+  Serial.print(" - SSID: ");
+  Serial.print(WiFi.SSID(i));
+```
+
+Then we will print, at the same line, the received RSSI - Received Signal Strength Indicator of the network.
+
+```c  
+  Serial.print("  -  RSSI = ");
+  Serial.print(WiFi.RSSI(i));
+  Serial.println("");
+  delay(10);
+ }
+ ```
+ 
+For more info, the libs can be consulted.
+
+![image](https://user-images.githubusercontent.com/58916022/220495505-12a19dd0-d96d-45a4-8e75-0996d1e4b722.png)
+ 
+Then it will be in loop of a few seconds.
+
+Results:
+
+![image](https://user-images.githubusercontent.com/58916022/220433410-c7995c3b-5a3c-4a72-a975-2960c06d9f30.png)
+
 
