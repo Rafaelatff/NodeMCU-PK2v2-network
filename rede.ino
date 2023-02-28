@@ -2,7 +2,7 @@
 
 // Configuração da rede wifi
 const char* ssid = "CYBERDYNE";
-const char* senha = "Nov4Senh66";
+const char* senha = "put your pass here";
 
 //const byte LED_Green = D4;
 const byte LED_Verde = 2;  // both can be used, 2 (gpio) or D4 (board)
